@@ -1,4 +1,6 @@
-// values assigned to options: scissors = 1, paper = 2, rock = 3
+const SCISSORS = 1;
+const PAPER = 2;
+const ROCK = 3;
 
 // generate random integer between 1 and 3 and return the value
 function getComputerChoice() {
@@ -10,26 +12,26 @@ function getComputerChoice() {
 function playRound(playerSelection, computerSelection) {
     console.log(`Computer picked: %s`, computerSelection);
     console.log(`You picked: %s`, playerSelection);
-    if (playerSelection === 1) { // scissors
-        if (computerSelection === 1) {
+    if (playerSelection === SCISSORS) {
+        if (computerSelection === SCISSORS) {
             return "Draw! Scissors and Scissors"
-        } else if (computerSelection === 2) {
-            return "You Lose! Scissors beats Paper"
+        } else if (computerSelection === PAPER) {
+            return "You Win! Scissors beats Paper"
         } else {
-            return "You Win! Scissors beats Rock";
+            return "You Lose! Rock beats Scissors";
         }
-    } else if (playerSelection === 2) { // paper
-        if (computerSelection === 1) {
+    } else if (playerSelection === PAPER) { // paper
+        if (computerSelection === SCISSORS) {
             return "You Lose! Scissors beats Paper"
-        } else if (computerSelection === 2) {
+        } else if (computerSelection === PAPER) {
             return "Draw! Paper and Paper"
         } else {
             return "You Win! Paper beats Rock";
         }
     } else { // rock
-        if (computerSelection === 1) {
+        if (computerSelection === SCISSORS) {
             return "You Win! Rock beats Scissors";
-        } else if (computerSelection === 2) {
+        } else if (computerSelection === PAPER) {
             return "You Lose! Paper beats Rock"
         } else {
             return "Draw! Rock and Rock"
@@ -45,11 +47,11 @@ function getPlayerChoice() {
         const choiceStr = prompt("Enter your choice (rock, paper, scissors): ").toLowerCase();
         // convert user selection to an int    
         if (choiceStr === "rock") {
-            choice = 3;
+            choice = ROCK;
         } else if (choiceStr === "paper") {
-            choice = 2;
+            choice = PAPER;
         } else if (choiceStr === "scissors") {
-            choice = 1;
+            choice = SCISSORS;
         }
     }
 
