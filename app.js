@@ -68,6 +68,7 @@ function playRound(playerSelection, computerSelection) {
 }
 
 // play given number of rounds of the game
+/*
 function playGame() {
     let gameResult;
     let wins = 0;
@@ -97,5 +98,6 @@ function playGame() {
         console.log("Tie!")
     }
 }
+*/
 
 playGame();
