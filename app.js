@@ -2,38 +2,21 @@ const ROCK = 1;
 const PAPER = 2;
 const SCISSORS = 3;
 
+const ROUNDS = 5; // number of games to be played
+
+let gameCounter = 0;
+let score = 0; 
+
 // generate random integer between 1 and 3 and return the value
 function getComputerChoice() {
     return Math.floor(Math.random() * 3 + 1);
 }
 
-// prompt user for their choice and convert to an int (1, 2, 3)
-/*
-function getPlayerChoice() {
-    let choice = 0;
-    // get user choice
-    while (choice === 0) {
-        const choiceStr = prompt("Enter your choice (rock, paper, scissors): ").toLowerCase();
-        // convert user selection to an int    
-        if (choiceStr === "rock") {
-            choice = ROCK;
-        } else if (choiceStr === "paper") {
-            choice = PAPER;
-        } else if (choiceStr === "scissors") {
-            choice = SCISSORS;
-        }
-    }
-
-    return choice;
-}*/
-
 // function that plays a single round of Rock Paper Scissors
 // function takes two parameters (playerSelection and computerSelection) and returns a number representing the result (1: win, 0: tie, -1 loss)
 function playRound(playerSelection, computerSelection) {
-    console.log(`Computer picked: %s`, computerSelection);
-    console.log(`You picked: %s`, playerSelection);
     const resultDiv = document.querySelector("#result-container");
-    
+
     if (playerSelection === SCISSORS) {
         if (computerSelection === SCISSORS) {
             resultDiv.textContent = "Tie! Scissors and Scissors";
@@ -71,46 +54,44 @@ function playRound(playerSelection, computerSelection) {
 }
 
 // play given number of rounds of the game
-/*
-function playGame() {
-    let gameResult;
-    let wins = 0;
-    let losses = 0;
-    const rounds = 5; // number of games to be played
-
-    for (let i = 0; i < rounds; i++) { // loop 'rounds' number of times
-        const computerSelection = getComputerChoice();
-        const playerSelection = getPlayerChoice();
-
-        gameResult = playRound(playerSelection, computerSelection); // get result of each game
-        if (gameResult === 1) { // if win
-            wins++;
-        } else if (gameResult === -1) { // if loss
-            losses++;
+function playGame(playerSelection, computerSelection) {    
+    const buttons = document.querySelectorAll(".rpcBtn");    
+    const counterDiv = document.querySelector("#counter-container");
+    const scoreDiv = document.querySelector("#score-container");
+    
+    score += playRound(playerSelection, computerSelection); // get result of each game and adjust score accordingly
+    gameCounter++;
+    counterDiv.textContent = `Games played: ${gameCounter}`;
+    
+    scoreDiv.textContent = `Score: ${score}`;
+    
+    if (gameCounter === ROUNDS) { 
+        buttons.forEach((btn) => btn.setAttribute("disabled", "disabled")); // disable rock-paper-scissors buttons if no more games left
+        
+        if (score > 0) {
+            scoreDiv.textContent = `Score: ${score} -> You win!!!`;
+        } else if (score < 0) {
+            scoreDiv.textContent = `Score: ${score} -> You lose!!!`;
+        } else {
+            scoreDiv.textContent = `Score: ${score} -> Tie!!!`;
         }
-    }
-
-    // print results to the console
-    console.log(`Wins: %d`, wins);
-    console.log(`Losses: %d`, losses);
-    if (wins > losses) {        
-        console.log("You win!")
-    } else if (wins < losses) {
-        console.log("You lose!")
-    } else {
-        console.log("Tie!")
-    }
+    }    
 }
-*/
 
 function attachEventListeners() {
-    const buttons = document.querySelectorAll("button");
+    const buttons = document.querySelectorAll(".rpcBtn");
+    const counterDiv = document.querySelector("#counter-container");
+    const resetButton = document.querySelector("#resetBtn");
+    const resultDiv = document.querySelector("#result-container");    
+    const scoreDiv = document.querySelector("#score-container");
+
     let playerSelection = 0;
     
     buttons.forEach((btn) => {
         btn.addEventListener("click", () => {
             const computerSelection = getComputerChoice();
             const choiceStr = btn.textContent.toLowerCase();
+
             if (choiceStr === "rock") {
                 playerSelection = ROCK;                
             } else if (choiceStr === "paper") {
@@ -119,10 +100,18 @@ function attachEventListeners() {
                 playerSelection = SCISSORS;
             }
 
-            playRound(playerSelection, computerSelection);
+            playGame(playerSelection, computerSelection);
         })
     })
+
+    resetButton.addEventListener("click", () => {
+        gameCounter = 0;
+        score = 0;
+        buttons.forEach((btn) => btn.removeAttribute("disabled"));
+        resultDiv.textContent = "Click Rock / Paper / Scissors button above to start a game";
+        counterDiv.textContent = `Games played: ${gameCounter}`;        
+        scoreDiv.textContent = `Score: ${score}`;
+    })    
 }
 
 attachEventListeners();
-// playGame();
