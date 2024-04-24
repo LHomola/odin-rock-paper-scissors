@@ -17,7 +17,7 @@ function getComputerChoice() {
 // function takes two parameters (playerSelection and computerSelection) and returns a number representing the result (1: win, 0: tie, -1 loss)
 function playRound(playerSelection, computerSelection) {
     const resultDiv = document.querySelector("#result-container");
-
+    
     if (playerSelection === SCISSORS) {
         if (computerSelection === SCISSORS) {
             resultDiv.textContent = "Tie! Scissors and Scissors";
@@ -57,13 +57,16 @@ function playRound(playerSelection, computerSelection) {
 // play given number of rounds of the game
 function playGame(playerSelection, computerSelection) {    
     const buttons = document.querySelectorAll(".rpcBtn");    
+    const computerDiv = document.querySelector("#computer-selection-container");
     const counterDiv = document.querySelector("#counter-container");
+    const playerDiv = document.querySelector("#player-selection-container");
     const scoreDiv = document.querySelector("#score-container");
     
     score += playRound(playerSelection, computerSelection); // get result of each game and adjust score accordingly
     gameCounter++;
-    counterDiv.textContent = `Games played: ${gameCounter}`;
-    
+    playerDiv.textContent = `You chose: ${playerSelection.toUpperCase()}`;
+    computerDiv.textContent = `Computer chose: ${computerSelection.toUpperCase()}`;
+    counterDiv.textContent = `Games played: ${gameCounter}`;    
     scoreDiv.textContent = `Score: ${score}`;
 
     if (gameCounter === ROUNDS) { 
@@ -92,7 +95,7 @@ function attachEventListeners() {
     buttons.forEach((btn) => {
         btn.addEventListener("click", () => {
             const computerSelection = getComputerChoice();
-            const playerSelection = btn.textContent.toUpperCase();
+            const playerSelection = btn.textContent.toLowerCase();
 
             playGame(playerSelection, computerSelection);
         })
