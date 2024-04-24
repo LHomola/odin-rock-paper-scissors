@@ -37,43 +37,34 @@ function playRound(playerSelection, computerSelection) {
     if (playerSelection === SCISSORS) {
         if (computerSelection === SCISSORS) {
             resultDiv.textContent = "Tie! Scissors and Scissors";
-            console.log("Tie! Scissors and Scissors");
             return 0;
         } else if (computerSelection === PAPER) {
             resultDiv.textContent = "You Win! Scissors beats Paper";
-            console.log("You Win! Scissors beats Paper");
             return 1;
         } else {
             resultDiv.textContent = "You Lose! Rock beats Scissors";
-            console.log("You Lose! Rock beats Scissors");
             return -1;
         }
     } else if (playerSelection === PAPER) { // paper
         if (computerSelection === SCISSORS) {
             resultDiv.textContent = "You Lose! Scissors beats Paper";
-            console.log("You Lose! Scissors beats Paper");
             return -1;
         } else if (computerSelection === PAPER) {
             resultDiv.textContent = "Tie! Paper and Paper";
-            console.log("Tie! Paper and Paper");
             return 0;
         } else {
             resultDiv.textContent = "You Win! Paper beats Rock";
-            console.log("You Win! Paper beats Rock");
             return 1;
         }
     } else { // rock
         if (computerSelection === SCISSORS) {
             resultDiv.textContent = "You Win! Rock beats Scissors";
-            console.log("You Win! Rock beats Scissors");
             return 1;
         } else if (computerSelection === PAPER) {
             resultDiv.textContent = "You Lose! Paper beats Rock";
-            console.log("You Lose! Paper beats Rock");
             return -1;
         } else {
             resultDiv.textContent = "Tie! Rock and Rock";
-            console.log("Tie! Rock and Rock");
             return 0;
         }
     }
