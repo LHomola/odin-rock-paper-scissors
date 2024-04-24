@@ -1,6 +1,6 @@
-const SCISSORS = 1;
+const ROCK = 1;
 const PAPER = 2;
-const ROCK = 3;
+const SCISSORS = 3;
 
 // generate random integer between 1 and 3 and return the value
 function getComputerChoice() {
@@ -32,36 +32,47 @@ function getPlayerChoice() {
 function playRound(playerSelection, computerSelection) {
     console.log(`Computer picked: %s`, computerSelection);
     console.log(`You picked: %s`, playerSelection);
+    const resultDiv = document.querySelector("#result-container");
+    
     if (playerSelection === SCISSORS) {
         if (computerSelection === SCISSORS) {
+            resultDiv.textContent = "Tie! Scissors and Scissors";
             console.log("Tie! Scissors and Scissors");
             return 0;
         } else if (computerSelection === PAPER) {
+            resultDiv.textContent = "You Win! Scissors beats Paper";
             console.log("You Win! Scissors beats Paper");
             return 1;
         } else {
+            resultDiv.textContent = "You Lose! Rock beats Scissors";
             console.log("You Lose! Rock beats Scissors");
             return -1;
         }
     } else if (playerSelection === PAPER) { // paper
         if (computerSelection === SCISSORS) {
+            resultDiv.textContent = "You Lose! Scissors beats Paper";
             console.log("You Lose! Scissors beats Paper");
             return -1;
         } else if (computerSelection === PAPER) {
+            resultDiv.textContent = "Tie! Paper and Paper";
             console.log("Tie! Paper and Paper");
             return 0;
         } else {
+            resultDiv.textContent = "You Win! Paper beats Rock";
             console.log("You Win! Paper beats Rock");
             return 1;
         }
     } else { // rock
         if (computerSelection === SCISSORS) {
+            resultDiv.textContent = "You Win! Rock beats Scissors";
             console.log("You Win! Rock beats Scissors");
             return 1;
         } else if (computerSelection === PAPER) {
+            resultDiv.textContent = "You Lose! Paper beats Rock";
             console.log("You Lose! Paper beats Rock");
             return -1;
         } else {
+            resultDiv.textContent = "Tie! Rock and Rock";
             console.log("Tie! Rock and Rock");
             return 0;
         }
