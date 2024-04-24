@@ -1,6 +1,6 @@
-const ROCK = 1;
-const PAPER = 2;
-const SCISSORS = 3;
+const ROCK = 'rock';
+const PAPER = 'paper';
+const SCISSORS = 'scissors';
 
 const ROUNDS = 5; // number of games to be played
 
@@ -9,7 +9,8 @@ let score = 0;
 
 // generate random integer between 1 and 3 and return the value
 function getComputerChoice() {
-    return Math.floor(Math.random() * 3 + 1);
+    const choices = [ROCK, PAPER, SCISSORS];
+    return choices[Math.floor(Math.random() * 3)];
 }
 
 // function that plays a single round of Rock Paper Scissors
@@ -64,7 +65,7 @@ function playGame(playerSelection, computerSelection) {
     counterDiv.textContent = `Games played: ${gameCounter}`;
     
     scoreDiv.textContent = `Score: ${score}`;
-    
+
     if (gameCounter === ROUNDS) { 
         buttons.forEach((btn) => btn.setAttribute("disabled", "disabled")); // disable rock-paper-scissors buttons if no more games left
         
@@ -80,8 +81,9 @@ function playGame(playerSelection, computerSelection) {
 
 function attachEventListeners() {
     const buttons = document.querySelectorAll(".rpcBtn");
-    const counterDiv = document.querySelector("#counter-container");
     const resetButton = document.querySelector("#resetBtn");
+    
+    const counterDiv = document.querySelector("#counter-container");    
     const resultDiv = document.querySelector("#result-container");    
     const scoreDiv = document.querySelector("#score-container");
 
@@ -90,15 +92,7 @@ function attachEventListeners() {
     buttons.forEach((btn) => {
         btn.addEventListener("click", () => {
             const computerSelection = getComputerChoice();
-            const choiceStr = btn.textContent.toLowerCase();
-
-            if (choiceStr === "rock") {
-                playerSelection = ROCK;                
-            } else if (choiceStr === "paper") {
-                playerSelection = PAPER;
-            } else if (choiceStr === "scissors") {
-                playerSelection = SCISSORS;
-            }
+            const playerSelection = btn.textContent.toUpperCase();
 
             playGame(playerSelection, computerSelection);
         })
