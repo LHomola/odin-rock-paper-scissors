@@ -8,6 +8,7 @@ function getComputerChoice() {
 }
 
 // prompt user for their choice and convert to an int (1, 2, 3)
+/*
 function getPlayerChoice() {
     let choice = 0;
     // get user choice
@@ -24,7 +25,7 @@ function getPlayerChoice() {
     }
 
     return choice;
-}
+}*/
 
 // function that plays a single round of Rock Paper Scissors
 // function takes two parameters (playerSelection and computerSelection) and returns a number representing the result (1: win, 0: tie, -1 loss)
@@ -100,4 +101,26 @@ function playGame() {
 }
 */
 
-playGame();
+function attachEventListeners() {
+    const buttons = document.querySelectorAll("button");
+    let playerSelection = 0;
+    
+    buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const computerSelection = getComputerChoice();
+            const choiceStr = btn.textContent.toLowerCase();
+            if (choiceStr === "rock") {
+                playerSelection = ROCK;                
+            } else if (choiceStr === "paper") {
+                playerSelection = PAPER;
+            } else if (choiceStr === "scissors") {
+                playerSelection = SCISSORS;
+            }
+
+            playRound(playerSelection, computerSelection);
+        })
+    })
+}
+
+attachEventListeners();
+// playGame();
